@@ -23,21 +23,27 @@ public class FullNameApplication {
                 %sHello! Please provide your full name! Include first, middle, last, and any suffix. %n
                 """, BLUE);
         String firstName = askQuestion(BLUE, "First name: ");
-        String middleName  = askQuestion(BLUE, "Middle name: ");
-        String lastName  = askQuestion(BLUE, "Last name: ");
+        String middleName = askQuestion(BLUE, "Middle name: ");
+        String lastName = askQuestion(BLUE, "Last name: ");
         String suffix = askQuestion(BLUE, "Suffix: ");
 
         // TODO - Create a string that holds the user's full name. Trim leading or trailing spaces user may have put.
-        String formattedFullName = firstName + middleName + lastName + suffix.trim();
+        String formattedFullName;
+        formattedFullName = firstName;
+        if (!middleName.isEmpty()) {
+            formattedFullName = formattedFullName + " " + middleName;
+        }
+        if (!lastName.isEmpty()) {
+            formattedFullName = formattedFullName + " " + lastName;
+        }
+        if (!suffix.isEmpty()) {
+            formattedFullName = formattedFullName + ", " + suffix;
 
-        String[] nameParts =  formattedFullName.split(" ");
-
+        }
         // TODO - Print the user's name to them
-        System.out.printf("%sYour full name is: %s%s %s %s %s %s%s %n", BLUE, RESET, GREEN, firstName, middleName, lastName, suffix, RESET);
-        // TODO - Create an example that includes a middle initial as well.
+        System.out.printf("%sYour full name is:%s %s%s%s%n", BLUE, RESET, GREEN, formattedFullName, RESET);
 
-        // TODO -
-
+        // * close scanner to save resources
         sc.close();
     } // ! main method closing bracket
 
@@ -50,9 +56,9 @@ public class FullNameApplication {
     public static String askQuestion(String color, String prompt) {
         String coloredPrompt;
         coloredPrompt = makeColorScheme(color, prompt);
-        System.out.println(coloredPrompt);
+        System.out.print(coloredPrompt);
         String answer = sc.nextLine();
-        return answer;
+        return answer.trim();
     }
 
 } // ! class closing bracket
